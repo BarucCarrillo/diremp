@@ -12,7 +12,7 @@ class AuthController extends Controller
     //
     public function register(Request $request){
 
-        $response = ["success"=>"false"];
+        $response = ["success"=>false];
         //VALIDACION
         $validator = Validator::make($request->all(), [
             'name' => 'required',
@@ -34,6 +34,32 @@ class AuthController extends Controller
 
         $response["success"] = true;
         //$response["token"] = $user-> createToken("YIYI")->plainTextToken;
+
+        return response()->json($response, 200);
+    }
+
+    public function login(Request $request){
+        $response = ["success"=>false];
+        //VALIDACION
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
+        
+        if($validator-> fails()){
+            $response = ["error" => $validator->errors()];
+
+        return response()->json($response, 200);
+        }
+
+        if(auth()->attempt(['email' => $request->email, 'password' => $request->password])){
+            $user = auth()->user();
+            $user -> hasRole('client');
+            
+            $response['token'] = $user->createToken("YIYI")->plainTextToken;
+            $response['user'] = $user;
+            $response['success'] = true;
+        };
 
         return response()->json($response, 200);
     }
