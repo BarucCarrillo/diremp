@@ -10,12 +10,16 @@ import PageHome from './pagepublic/PageHome'
 import ProtectedRoutes from './pageauth/ProtectedRoutes'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 
+//AUTH
+import Login from './pageauth/Login'
+
 const App = () => {
   return (
     <Router>
       <Routes>
         <Route path="/" element={<LayoutPublic/>}>
           <Route index element={<PageHome/>}/>
+          <Route path='/login' element={<Login/>}/>
         </Route>
         <Route element={<ProtectedRoutes/>}>
           <Route path="/admin" element={<LayoutAdmin/>}>
