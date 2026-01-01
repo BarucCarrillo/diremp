@@ -35,13 +35,6 @@ const AuthUser = () => {
         setRol(rol)
         setToken(token)
 
-        //ROL : admin | client
-
-        if(getRol() ==="admin")
-            navigate('/admin')
-        if(getRol()==="client")
-            navigate('/client')
-
     }
 
     const getLogout = () => {

@@ -58,6 +58,7 @@ class AuthController extends Controller
             
             $response['token'] = $user->createToken("YIYI")->plainTextToken;
             $response['user'] = $user;
+            $response['message'] = "Logueado";
             $response['success'] = true;
         };
 
